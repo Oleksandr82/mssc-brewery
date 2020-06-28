@@ -29,7 +29,7 @@ public class BeerControllerV2 {
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody BeerDtoV2 BeerDtoV2) {
+    public ResponseEntity<Void> handlePost(@RequestBody BeerDtoV2 BeerDtoV2) {
 
         BeerDtoV2 savedDto = beerService.saveNewBeer(BeerDtoV2);
 
@@ -37,15 +37,15 @@ public class BeerControllerV2 {
         // TODO: add hostname to url
         headers.add("Location", "/api/v2/beer/" + savedDto.getId().toString());
 
-        return new ResponseEntity(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @PutMapping({"/{beerId}"})
-    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, @RequestBody BeerDtoV2 BeerDtoV2) {
+    public ResponseEntity<Void> handleUpdate(@PathVariable("beerId") UUID beerId, @RequestBody BeerDtoV2 BeerDtoV2) {
 
         beerService.updateBeer(beerId, BeerDtoV2);
 
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping({"/{beerId}"})
