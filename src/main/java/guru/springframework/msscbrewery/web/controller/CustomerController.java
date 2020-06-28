@@ -1,7 +1,7 @@
 package guru.springframework.msscbrewery.web.controller;
 
 import guru.springframework.msscbrewery.services.CustomerService;
-import guru.springframework.msscbrewery.web.model.CustomerDTO;
+import guru.springframework.msscbrewery.web.model.CustomerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<CustomerDTO> getCustomer(@PathVariable("customerId") UUID id) {
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable("customerId") UUID id) {
         return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 }
