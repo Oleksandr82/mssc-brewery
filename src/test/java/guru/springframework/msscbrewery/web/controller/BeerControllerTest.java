@@ -74,7 +74,21 @@ public class BeerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDtoJson))
                 .andExpect(status().isCreated());
+    }
 
+    @Test
+    public void handlePostWithNotValidObject_shouldReturnBadRequest() throws Exception {
+        //given
+        BeerDto beerDto = validBeer;
+        beerDto.setBeerName(null);
+        String beerDtoJson = objectMapper.writeValueAsString(beerDto);
+
+        mockMvc.perform(post("/api/v1/beer/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(beerDtoJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json(
+                        "[\"beerDto.beerName: must not be blank\",\"beerDto.id: must be null\"]"));
     }
 
     @Test
